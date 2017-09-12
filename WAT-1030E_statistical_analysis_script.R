@@ -151,6 +151,11 @@ gdp_all  <- read.csv("data/GDP_all_countries_UN.csv", header = TRUE, sep = ";",d
 
 #GDP AND LIFE EXPECTANCY
 
+
+#Check relationship between correlation variables. Plot scatter plot.
+plot(gdp_all[,"X2011"],life_expectancy_all[,"X2011"], main="Life expectancy vs. GDP", ylab="Life expectancy [years]", xlab="GDP [USD per capita]")
+
+
 #Run correlation tests for GDP and life expectancy using Pearson's and Kendall's correlations. Use data from year 2011.
 cor.test(gdp_all[,"X2011"], life_expectancy_all[,"X2011"], method = c("pearson")) #H0: variables statistically independent, (r=0)
 cor.test(gdp_all[,"X2011"], life_expectancy_all[,"X2011"], method = c("kendall")) #H0: variables statistically independent, (tau=0)
@@ -166,9 +171,6 @@ qqnorm(life_expectancy_all[,"X2011"], main="Life expectancy - Normal probability
 
 shapiro.test(gdp_all[,"X2011"]) #Shapiro-Wilk's test; H0: data is of normal distribution
 shapiro.test(life_expectancy_all[,"X2011"])
-
-#Check relationship between correlation variables. Plot scatter plot.
-plot(gdp_all[,"X2011"],life_expectancy_all[,"X2011"], main="Life expectancy vs. GDP", ylab="Life expectancy [years]", xlab="GDP [USD per capita]")
 
 
 
