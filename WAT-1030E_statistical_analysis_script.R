@@ -97,10 +97,13 @@ library(ggplot2)
 
 #Plot population data
 ggplot(data=population)+
+  #"aes" specifies an "aesthetic mapping" describing how visual properties (aesthetics) relate to variables/data values
+  #"geom" specifies the geometric object to be used, here lines
   geom_line(aes(x=Year,y=World,color="World"))+
   geom_line(aes(x=Year,y=High_income_countries,color="High_income_countries"))+
   geom_line(aes(x=Year,y=Middle_income_countries,color="Middle_income_countries"))+
   geom_line(aes(x=Year,y=Low_income_countries,color="Low_income_countries"))+
+  #override defaults
   ylab("Population [thousands]")+
   labs(title="Population")+
   scale_x_continuous(breaks= seq(1950, 2015, by = 10))
@@ -129,6 +132,8 @@ ggplot(data=under_five_year_mortality)+
   geom_point(aes(x=Period,y=Low_income_countries,color="Low_income_countries"))+
   ylab("Under five year mortality [deaths under age five per 1,000 live births]")+
   labs(title="Under five year mortality")+
+  # see help("scale_color_brewer")
+  scale_color_brewer(type = "qual")+
   theme(axis.text.x=element_text(angle=90)) #rotate x-axis labels
 
 
