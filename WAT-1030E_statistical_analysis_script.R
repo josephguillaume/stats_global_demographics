@@ -161,19 +161,24 @@ gdp_all  <- read.csv("data/GDP_all_countries_UN.csv", header = TRUE, sep = ";",d
 plot(gdp_all[,"X2011"],life_expectancy_all[,"X2011"], main="Life expectancy vs. GDP", ylab="Life expectancy [years]", xlab="GDP [USD per capita]")
 
 
-#Run correlation tests for GDP and life expectancy using Pearson's and Kendall's correlations. Use data from year 2011.
+#Run correlation tests for GDP and life expectancy, using data from year 2011.
+# Pearson correlation coefficient - test for linear association (may be affected by outliers and high levels of skewness)
 cor.test(gdp_all[,"X2011"], life_expectancy_all[,"X2011"], method = c("pearson")) #H0: variables statistically independent, (r=0)
+# Kendall correlation coefficient - test for monotonic association
 cor.test(gdp_all[,"X2011"], life_expectancy_all[,"X2011"], method = c("kendall")) #H0: variables statistically independent, (tau=0)
 
-
-#Check normality assumption. Plot histograms and normal probability plots and use 
-#Shapiro-Wilk's test to analyse normality.
+#Partial check of bivariate normality assumption for Pearson p-value - otherwise p-value may be unreliable for small samples
+# We only test here if both variables are normally distributed
+#Plot histograms and normal probability plots and use 
 hist(gdp_all[,"X2011"], xlab="GDP [USD per capita]", main="Gross Domestic Propduct")
 hist(life_expectancy_all[,"X2011"], xlab="Life expectancy [years]", main="Life expectancy")
 
+#Quantile-quantile plot shows how theoretical quantiles (of normal distribution) compare to sample quantiles.
+# If the theoretical and sample quantiles match, they would fall on a straight line.
 qqnorm(gdp_all[,"X2011"], main="GDP - Normal probability plot");qqline(gdp_all[,"X2011"])
 qqnorm(life_expectancy_all[,"X2011"], main="Life expectancy - Normal probability plot");qqline(life_expectancy_all[,"X2011"])
 
+#Shapiro-Wilk's test to analyse normality.
 shapiro.test(gdp_all[,"X2011"]) #Shapiro-Wilk's test; H0: data is of normal distribution
 shapiro.test(life_expectancy_all[,"X2011"])
 
@@ -181,7 +186,7 @@ shapiro.test(life_expectancy_all[,"X2011"])
 
 #GDP AND UNDER FIVE YEAR MORTALITY. 
 
-#Calculate correlation for GDP and under five year mortality using Pearson and Kendall similarly as for life 
+#Calculate correlation for GDP and under five year mortality using Pearson and Kendall similarly to life 
 #expectancy. Use data from year 2011. 
 # MISSING SCRIPT. ----
 
@@ -209,7 +214,7 @@ library(lmtest)
 
 
 
-#DEFINE data FOR LINEAR REGRESSION (y = a + bx)
+#DEFINE DATA FOR LINEAR REGRESSION (y = a + bx)
 
 #Read data into new objects y and x
 y <- life_expectancy_all[,"X2011"] #dependent variable
